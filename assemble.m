@@ -33,6 +33,16 @@ Ksigma=zeros(ndof);
 
 [Ke]=elk(le,EI,GJ);
 
+for k = 1:nelem
+    start = k+3
+    stop = k+
+    for i = start:stop
+        for j = 1:le
+            K(i,j) = K(i,j)+Ke(i,j);
+            K(i+le/2,j+le/2) = K(i+le/2,j+le/2)+Ke(i,j);
+        end
+    end
+
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
