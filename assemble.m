@@ -30,7 +30,7 @@ K=zeros(ndof);
 Q=zeros(ndof,1);
 M=zeros(ndof);
 Ksigma=zeros(ndof);
-
+%% Appending Ke
 [Ke]=elk(le,EI,GJ);
 
 
@@ -45,7 +45,30 @@ for i = 1:60
             K(i+3,j+3) = K(i+3,j+3)+ K(i,j);
         end
 end
+%% Appending Ksigma
+[Kesigma]=elksigma(le,P,I0,A);
 
+for i = 1:6
+        for j = 1:6
+            Ksigma(i,j) = Ksigma(i,j)+Kesigma(i,j);
+        end
+end
+
+for i = 1:60
+        for j = 1:60
+            Ksigma(i+3,j+3) = Ksigma(i+3,j+3)+ Ksigma(i,j);
+        end
+end
+%% Appending Q
+[Qe]=elq(le,q,qt);
+
+for i = 1:6            
+    Q(i) = Q(i)+Qe(i);
+end
+
+for i = 1:60
+    Q(i+3) = Q(i+3)+ Q(i);
+end
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
