@@ -18,13 +18,13 @@ function [defl,teta,fi,umax,tmax,fimax]=bending(Ks,Qs,K,Q,nnode,node_z);
 % tetamax       maximum rotation
 % fimax		maximum twist
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-W= zeros(nnode*3-3,1);
+Ws= zeros(nnode*3-3,1);
 % Solve equation system
-W= inv(Ks)* Qs;
-Ws = zeros(nnode*3,1);
-Ws(4:nnode*3,1)= W;
+Ws= inv(Ks)* Qs;
+W = zeros(nnode*3,1);
+W(4:nnode*3,1)= Ws;
 % Reaction loads are calculated
-F_r = K*Ws - Q;
+F_r = K*W - Q;
 % Create result vector containing deflections, rotations and twist
 
 % Separate deflections, rotations and twist in separate vectors
@@ -34,31 +34,42 @@ fi= zeros(nnode,1);
 
 j=1;
 for i=1:3:nnode*3-2
-    defl(j,1)=Ws(i,1);
+    defl(j,1)=W(i,1);
     j=j+1;
 end
 
 u=1;
 for i=2:3:nnode*3-1
-    teta(u,1)=Ws(u,1);
+    teta(u,1)=W(i,1);
     u=u+1;
 end
 
 v=1;
 for i=3:3:nnode*3
-    defl(v,1)=Ws(i,1);
+    fi(v,1)=W(i,1);
     v=v+1;
 end
 
-umax= max(defl);
-tmax= max(teta);
-fimax=max(fi);
+umax= max(abs(defl));
+tmax= max(abs(teta));
+fimax=max(abs(fi));
 
 % Normalise deflections, rotations and twist and plot results
-% defl= defl./umax;
-% tetamax=teta./tetamax;
-% fimax=fi./fimax;
+defl= defl./umax;
+teta=teta./tmax;
+fi=fi./fimax;
 
-% plot()
+figure(1)
+plot(defl);
+title('Bending Deflection')
+
+figure(2)
+plot(teta);
+title('Bending Angle')
+
+figure(3)
+plot(fi);
+title('Bending Torsion Angle')
+
 % Reaction forces printout
 

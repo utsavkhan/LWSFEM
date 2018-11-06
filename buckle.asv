@@ -15,16 +15,16 @@ function [pb,ub]=buckle(Ks,Ksigmas,nnode,node_z);
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % Calculate eigenvalues and eigenvectors
-[pb,ub]=eig(Ks,-Ksigmas);
+[pb,ub]=eig(Ks,-Ksigmas)
 % Create result vector containing deflections, rotations and twist
-W_buckle= zeros(nnode,nnode-1);
-W_buckle(2:nnode,1:nnode-1) = pb(1:3:nnode*3-3,1:3:nnode*3-3); 
+W_buckle= zeros(nnode);
+W_buckle(2:nnode,1:nnode-1) = V(1:3:60,1:3:60); 
 
-teta_buckle= zeros(nnode,nnode-1);
-teta_buckle(2:nnode,1:nnode-1) =pb(2:3:nnode*3-3,2:3:nnode*3-3);
+teta_buckle= zeros(nnode);
+teta_buckle = V(2:3:60,2:3:60);
 
-fi_buckle= zeros(nnode,nnode-1);
-fi_buckle(2:nnode,1:nnode-1) = pb(3:3:nnode*3-3,3:3:nnode*3-3);
+fi_buckle= zeros(nnode);
+fi_buckle = V(3:3:60,3:3:60);
 
 % separate deflections, rotations and twist in separate vectors
 
@@ -33,35 +33,12 @@ fi_buckle(2:nnode,1:nnode-1) = pb(3:3:nnode*3-3,3:3:nnode*3-3);
 
         
     
-
 % Plot buckling modes
-figure(4)
 plot(W_buckle(:,1)./max(abs(W_buckle(:,1))));
 hold on;
 plot(W_buckle(:,2)./max(abs(W_buckle(:,2))));
 hold on;
 plot(abs(W_buckle(:,3))./max(abs(W_buckle(:,3))));
-hold on;
-title('First three buclking modes of defl')
-
-figure(5)
-
-plot(teta_buckle(:,1)./max(abs(teta_buckle(:,1))));
-hold on;
-plot(teta_buckle(:,2)./max(abs(teta_buckle(:,2))));
-hold on;
-plot(abs(teta_buckle(:,3))./max(abs(teta_buckle(:,3))));
-hold on;
-title('First three buclking modes of teta')
-
-figure(6)
-plot(fi_buckle(:,1)./max(abs(fi_buckle(:,1))));
-hold on;
-plot(fi_buckle(:,2)./max(abs(fi_buckle(:,2))));
-hold on;
-plot(abs(fi_buckle(:,3))./max(abs(fi_buckle(:,3))));
-hold on;
-title('First three buclking modes of fi')
 
 
 

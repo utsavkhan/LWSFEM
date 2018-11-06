@@ -1,4 +1,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+clc;
+close all;
+clear all;
 % Main Program
 % Beam FE-code for bending about 1-axis and St.Venant torsion
 %
@@ -63,5 +66,8 @@ Ksigmas=Ksigma(4:ndof,4:ndof);
 % ub is a matrix of corresponding buckling modes
 % (row i of ub is buckling mode of buckling load i)
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% [pb,ub]=buckle(Ks,Ksigmas,nnode,node_z);
+[pb,ub]=buckle(Ks,Ksigmas,nnode,node_z);
+
+%%Checking using Handbook Formula
+% deflection_analytical = (-P*L^3)/(3*EI)+(q*L^4/(8*EI));
 
