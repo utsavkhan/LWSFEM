@@ -18,13 +18,13 @@ function [pb,ub]=buckle(Ks,Ksigmas,nnode,node_z);
 [pb,ub]=eig(Ks,-Ksigmas);
 % Create result vector containing deflections, rotations and twist
 W_buckle= zeros(nnode,nnode-1);
-W_buckle(2:nnode,1:nnode-1) = pb(1:3:nnode*3-3,1:3:nnode*3-3); 
+W_buckle(2:nnode,1:nnode*3-3) = pb(1:3:nnode*3-3,1:nnode*3-3)
 
 teta_buckle= zeros(nnode,nnode-1);
-teta_buckle(2:nnode,1:nnode-1) =pb(2:3:nnode*3-3,2:3:nnode*3-3);
+teta_buckle(2:nnode,1:nnode*3-3) =pb(2:3:nnode*3-3,1:nnode*3-3);
 
 fi_buckle= zeros(nnode,nnode-1);
-fi_buckle(2:nnode,1:nnode-1) = pb(3:3:nnode*3-3,3:3:nnode*3-3);
+fi_buckle(2:nnode,1:nnode*3-3) = pb(3:3:nnode*3-3,1:nnode*3-3);
 
 % separate deflections, rotations and twist in separate vectors
 
