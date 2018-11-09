@@ -24,7 +24,7 @@ Ws= inv(Ks)* Qs;
 W = zeros(nnode*3,1);
 W(4:nnode*3,1)= Ws;
 % Reaction loads are calculated
-F_r = K*W - Q;
+F_r = K*W - Q
 % Create result vector containing deflections, rotations and twist
 
 % Separate deflections, rotations and twist in separate vectors
