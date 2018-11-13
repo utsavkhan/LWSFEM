@@ -1,5 +1,5 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-clc;
+%clc;
 close all;
 clear all;
 % Main Program
@@ -69,5 +69,5 @@ Ksigmas=Ksigma(4:ndof,4:ndof);
 [pb,ub]=buckle(Ks,Ksigmas,nnode,node_z);
 
 %%Checking using Handbook Formula
-% deflection_analytical = (-P*L^3)/(3*EI)+(q*L^4/(8*EI));
+%deflection_analytical = (-P*L^3)/(3*EI)+(q*L^4/(8*EI));
 
