@@ -1,0 +1,68 @@
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+! Cantilever beam model
+! by Utsav and Andrea
+! 2018-11-12
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+FINISH ! Finishes the current job
+/CLEAR ! Clears the memory in ANSYS
+/PREP7 !Entering pre-processor
+/TITLE,Lab2
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+! Parameters
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+h=40 !Web height, mm
+b=60 !Flange width, mm
+tw=1 !Web thickness, mm
+tf=3 !Flange thickness, mm
+X=1 !Concentration factor (x)
+Y=1 !Concentration factor (y)
+L=1000 !Beam length, mm
+S=-100 !Load, N
+number=2 !Number used in meshing
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+! Material parameters and definitions
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+Ea=70000 !Young's modulus for aluminium
+nua=0.3 !Poisson's factor
+MP,EX,1,Ea !Assigning Ea to EX of material no 1
+MP,NUXY,1,nua !Assigning nua to NUXY of material no 1
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+! Element type
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+ET,1,93 !Shell93 -shell element
+R,1,tw !Web thickness
+R,2,tf !Flange thickness
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+! Some numbering
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+/PNUM,KP,1 !Keypoint numbering toggle 1=on 2=off
+/PNUM,LINE,1 !Line numbering toggle
+/PNUM,AREA,1 !Area numbering toggle
+/PNUM,NODE,0 !Node numbering toggle
+/PNUM,ELEM,0 !Element numbering toggle
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+! Geometry
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+K,1,b,0,0 !Keypoint number 1 at (x,y,z)=(b,0,0)
+K,2,0,0,0
+K,3,0,h,0
+K,4,b,h,0
+K,11,b,0,L ! L on this line refers to the defined variable
+K,12,0,0,L ! ”L” the length of the beam.
+K,13,0,h,L
+K,14,b,h,L
+L,1,2 !Line between keypoint 1 and 2. L signals here the
+L,2,3 !command ”Line”.
+L,3,4
+L,11,12
+L,12,13
+L,13,14
+L,1,11
+L,2,12
+L,3,13
+L,4,14
+
+AL,8,5,9,2 !Area surrounded by line 8, 5, 9 and 2
+AL,7,1,8,4
+AL,9,6,10,3
+/EOF
