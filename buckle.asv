@@ -37,33 +37,31 @@ fi_buckle(2:nnode,1:nnode*3-3) = pb(3:3:nnode*3-3,1:nnode*3-3);
 % Plot buckling modes
 figure(2)
 subplot(2,2,1)
-plot(node_z,W_buckle(:,1)./max(abs(W_buckle(:,1))));
+plot(W_buckle(:,1)./max(abs(W_buckle(:,1))));
 hold on;
-plot(node_z,W_buckle(:,2)./max(abs(W_buckle(:,2))));
+plot(W_buckle(:,2)./max(abs(W_buckle(:,2))));
 hold on;
-plot(node_z,(W_buckle(:,3))./max(abs(W_buckle(:,3))));
+plot((W_buckle(:,3))./max(abs(W_buckle(:,3))));
 hold on;
-grid on;
 title('First three buclking modes of defl')
 
-subplot(2,2,2)
-plot(node_z,teta_buckle(:,1)./max(abs(teta_buckle(:,1))));
+figure(5)
+
+plot(teta_buckle(:,1)./max(abs(teta_buckle(:,1))));
 hold on;
-plot(node_z,teta_buckle(:,2)./max(abs(teta_buckle(:,2))));
+plot(teta_buckle(:,2)./max(abs(teta_buckle(:,2))));
 hold on;
-plot(node_z,(teta_buckle(:,3))./max(abs(teta_buckle(:,3))));
+plot((teta_buckle(:,3))./max(abs(teta_buckle(:,3))));
 hold on;
-grid on;
 title('First three buclking modes of teta')
 
-subplot(2,2,3)
-plot(node_z,fi_buckle(:,1)./max(abs(fi_buckle(:,1))));
+figure(6)
+plot(fi_buckle(:,1)./max(abs(fi_buckle(:,1))));
 hold on;
-plot(node_z,fi_buckle(:,2)./max(abs(fi_buckle(:,2))));
+plot(fi_buckle(:,2)./max(abs(fi_buckle(:,2))));
 hold on;
-plot(node_z,(fi_buckle(:,3))./max(abs(fi_buckle(:,3))));
+plot((fi_buckle(:,3))./max(abs(fi_buckle(:,3))));
 hold on;
-grid on;
 title('First three buclking modes of fi')
 
 
