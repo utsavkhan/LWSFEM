@@ -65,4 +65,29 @@ L,4,14
 AL,8,5,9,2 !Area surrounded by line 8, 5, 9 and 2
 AL,7,1,8,4
 AL,9,6,10,3
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+! Element mesh
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+LESIZE, 1, , , number ! Element division for line 1
+LESIZE, 2, , , 2*number
+LESIZE, 3, , , number
+LESIZE, 4, , , number
+LESIZE, 5, , , 2*number
+LESIZE, 6, , , number
+LESIZE, 7, , , X*number, Y
+LESIZE, 8, , , X*number, Y
+LESIZE, 9, , , X*number, Y
+LESIZE, 10, , , X*number, Y
+
+TYPE,1 ! Active element type is set to 1 (earlier defined as SHELL93)
+REAL,1 ! Activates real constant group 1 (web thickness)
+MAT,1 ! Activates material 1
+AMESH,1 ! Divides the web-surface into elements (surface 1)
+A8 8
+REAL,2 ! Activates the real constant group 2 (flange thickness)
+AMESH,2,3 ! Divides the flanges surfaces into elements (surfaces 2 and 3)
+
+EPLO ! Plots the element mesh
+FINISH ! Quits the pre-processor
 /EOF
