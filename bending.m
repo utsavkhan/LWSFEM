@@ -61,26 +61,28 @@ fi=fi./fimax;
 
 figure(1)
 suptitle('Bending')
-subplot(2,2,1)
+subplot(3,1,1)
 plot(node_z,defl,'r-o');
 grid on;
 title('Bending Deflection')
 xlabel('Node Coordinates');
 ylabel('Displacement: w')
+hold on;
 
-subplot(2,2,2)
+subplot(3,1,2)
 plot(node_z,teta,'b-o');
 grid on;
 title('Bending Angle')
 xlabel('Node Coordinates');
 ylabel('Displacement :\theta')
+hold on;
 
-subplot(2,2,3)
+subplot(3,1,3)
 plot(node_z,fi,'g-o');
 grid on;
 title('Bending Torsion Angle')
 xlabel('Node Coordinates');
 ylabel('Displacement: \phi')
-
+hold on;
 % Reaction forces printout
 
