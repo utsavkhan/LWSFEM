@@ -14,8 +14,8 @@ h=40 !Web height, mm
 b=60 !Flange width, mm
 tw=1 !Web thickness, mm
 tf=3 !Flange thickness, mm
-X=1 !Concentration factor (x)
-Y=1 !Concentration factor (y)
+X=5 !Concentration factor (x)
+Y=5 !Concentration factor (y)
 L=1000 !Beam length, mm
 S=-100 !Load, N
 number=2 !Number used in meshing
@@ -84,10 +84,38 @@ TYPE,1 ! Active element type is set to 1 (earlier defined as SHELL93)
 REAL,1 ! Activates real constant group 1 (web thickness)
 MAT,1 ! Activates material 1
 AMESH,1 ! Divides the web-surface into elements (surface 1)
-A8 8
+
 REAL,2 ! Activates the real constant group 2 (flange thickness)
 AMESH,2,3 ! Divides the flanges surfaces into elements (surfaces 2 and 3)
 
 EPLO ! Plots the element mesh
 FINISH ! Quits the pre-processor
-/EOF
+
+/SOLUTION !Starting solution mode
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+! Boundary conditions
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+NSEL,S,LOC,Z,0 !Selecting nodes at beam end
+D,ALL,ALL !Clamped beam end
+NSEL,ALL !Reselecting all nodes
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+! Load
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+NSEL,S,LOC,Z,L
+NSEL,R,LOC,X,0
+
+CP,NEXT,UY,ALL
+NSEL,R,LOC,Y,h/2
+F,ALL,FY,S
+NSEL,ALL
+SOLVE !Solving the problem
+FINISH !Finishing solution mode
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+! Post-processing
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+/POST1 !Entering postprocessor
+PLNSOL,S,EQV !Plotting von Mises stress
+/VIEW,1,-1,-0.5,3 !Changes the view point
+/ANG,1
+/AUTO,1
+/REPLOT
