@@ -55,9 +55,9 @@ tmax= max(abs(teta));
 fimax=max(abs(fi));
 
 % Normalise deflections, rotations and twist and plot results
-defl= defl./umax;
-teta=teta./tmax;
-fi=fi./fimax;
+% defl= defl./umax;
+% teta=teta./tmax;
+% fi=fi./fimax;
 
 figure(1)
 suptitle('Bending')
