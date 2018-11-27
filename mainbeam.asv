@@ -26,7 +26,7 @@ m=A*ro;		% mass per unit length of elements [kg/m]
 q=0;%1;            % Distributed load [N/m]
 qt=0;		% Distributed torque [Nm/m]
 S=100;           % Concentrated load at end of beam [N]
-T=100*0.018;%1;		% Beam end torque [Nm]
+T=1;%1;		% Beam end torque [Nm]
 P=0;%-1.;		% Buckling load [N]
 
 % Element input data

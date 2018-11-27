@@ -10,8 +10,8 @@ FINISH ! Finishes the current job
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 ! Parameters
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-h=40 !Web height, mm
-b=60 !Flange width, mm
+h=60 !Web height, mm
+b=40 !Flange width, mm
 tw=1 !Web thickness, mm
 tf=3 !Flange thickness, mm
 X=5 !Concentration factor (x)
