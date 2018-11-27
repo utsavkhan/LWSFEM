@@ -14,11 +14,11 @@ h=60 !Web height, mm
 b=40 !Flange width, mm
 tw=1 !Web thickness, mm
 tf=3 !Flange thickness, mm
-X=5 !Concentration factor (x)
+X=40 !Concentration factor (x)
 Y=5 !Concentration factor (y)
 L=1000 !Beam length, mm
 S=-100 !Load, N
-number=2 !Number used in meshing
+number=5 !Number used in meshing
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 ! Material parameters and definitions
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
