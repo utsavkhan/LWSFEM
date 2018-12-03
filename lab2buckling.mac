@@ -1,0 +1,131 @@
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+! Cantilever beam model
+! by Utsav and Andrea
+! 2018-11-12
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+FINISH ! Finishes the current job
+/CLEAR ! Clears the memory in ANSYS
+/PREP7 !Entering pre-processor
+/TITLE,Lab2
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+! Parameters
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+h=60 !Web height, mm
+b=40 !Flange width, mm
+tw=1 !Web thickness, mm
+tf=3 !Flange thickness, mm
+X=40 !Concentration factor (x)
+Y=5 !Concentration factor (y)
+L=1000 !Beam length, mm
+P=1 !Load, N
+number=5 !Number used in meshing
+N=5 !
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+! Material parameters and definitions
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+Ea=70000 !Young's modulus for aluminium
+nua=0.3 !Poisson's factor
+MP,EX,1,Ea !Assigning Ea to EX of material no 1
+MP,NUXY,1,nua !Assigning nua to NUXY of material no 1
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+! Element type
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+ET,1,93 !Shell93 -shell element
+R,1,tw !Web thickness
+R,2,tf !Flange thickness
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+! Some numbering
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+/PNUM,KP,1 !Keypoint numbering toggle 1=on 2=off
+/PNUM,LINE,1 !Line numbering toggle
+/PNUM,AREA,1 !Area numbering toggle
+/PNUM,NODE,0 !Node numbering toggle
+/PNUM,ELEM,0 !Element numbering toggle
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+! Geometry
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+K,1,b,0,0 !Keypoint number 1 at (x,y,z)=(b,0,0)
+K,2,0,0,0
+K,3,0,h,0
+K,4,b,h,0
+K,11,b,0,L ! L on this line refers to the defined variable
+K,12,0,0,L ! ”L” the length of the beam.
+K,13,0,h,L
+K,14,b,h,L
+L,1,2 !Line between keypoint 1 and 2. L signals here the
+L,2,3 !command ”Line”.
+L,3,4
+L,11,12
+L,12,13
+L,13,14
+L,1,11
+L,2,12
+L,3,13
+L,4,14
+
+AL,8,5,9,2 !Area surrounded by line 8, 5, 9 and 2
+AL,7,1,8,4
+AL,9,6,10,3
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+! Element mesh
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+LESIZE, 1, , , number ! Element division for line 1
+LESIZE, 2, , , 2*number
+LESIZE, 3, , , number
+LESIZE, 4, , , number
+LESIZE, 5, , , 2*number
+LESIZE, 6, , , number
+LESIZE, 7, , , X*number, Y
+LESIZE, 8, , , X*number, Y
+LESIZE, 9, , , X*number, Y
+LESIZE, 10, , , X*number, Y
+
+TYPE,1 ! Active element type is set to 1 (earlier defined as SHELL93)
+REAL,1 ! Activates real constant group 1 (web thickness)
+MAT,1 ! Activates material 1
+AMESH,1 ! Divides the web-surface into elements (surface 1)
+
+REAL,2 ! Activates the real constant group 2 (flange thickness)
+AMESH,2,3 ! Divides the flanges surfaces into elements (surfaces 2 and 3)
+
+EPLO ! Plots the element mesh
+FINISH ! Quits the pre-processor
+
+/SOLUTION !Starting solution mode
+PSTRES, ON ! Saves initial stresses and creates an initial stress matrix
+SOLVE
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+! Boundary conditions
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+NSEL,S,LOC,Z,0 !Selecting nodes at beam end
+D,ALL,ALL !Clamped beam end
+NSEL,ALL !Reselecting all nodes
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+! Load
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+fracflange=(b*tf)/(h*tw+2*b*tf) ! Calculates the fraction of the total cross
+fracweb= (h*tw)/(h*tw+2*b*tf) ! section area for the flanges and the web
+presline4=(P/b)*fracflange ! Calculate the line loads for lines 4-6
+presline5=(P/h)*fracweb
+presline6=presline4 ! The applied load on lines 4 and 6
+SFL,4,PRES,presline4 ! is equal due to symmetry
+SFL,5,PRES,presline5
+SFL,6,PRES,presline6
+SOLVE !Solving the problem
+FINISH !Finishing solution mode
+
+/SOLUTION ! To solve the new problem
+ANTYPE, BUCKLE ! Defines the type of problem to be solved
+BUCOPT, LANB, N ! Defined the type of solution method to be used and how
+! many eigenvalues (N) that should be computed
+MXPAND, N ! Necessary command to be able to plot the solutions
+SOLVE ! Solve the problem
+FINISH ! Finish the calculation
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+! Post-processing
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+/POST1 !Entering postprocessor
+SET, FIRST ! Activate the first mode
+PLDISP, 2 ! Plots this mode together with the undeformed beam shape

@@ -1,5 +1,5 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%clc;
+clc;
 close all;
 clear all;
 % Main Program
@@ -9,14 +9,14 @@ clear all;
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % Definitions and input data
-L=1.0;		% Length in [m]
+L=2.0;		% Length in [m]
 E=7E+10;	% Youngs modulus [N/m2]
 G=2.6923E+10;	% Shear modulus [N/m2]
-I=2.34E-07;%2.667E-9;	% Moment of inertia about x-axis [m4]
+I=5.12E-08;%2.34E-07;%2.667E-9;	% Moment of inertia about x-axis [m4]
 J=7.4E-10;%1.2E-10;	% Torsional constant [m4]
 EI=E*I;		% Bending stiffness [Nm2]
 GJ=G*J;		% Torsional stiffness [Nm2]
-I0=4E-8;	% Polar moment of inertia [m4]
+I0=4E-7;%4E-07;	% Polar moment of inertia [m4]
 A=3E-04;%1.2E-4;	% Cross-section area [m2]
 ro=2700;	% Material density [kg/m3]
 J0=I0*ro;	% Mass moment of inertia [kgm]
@@ -25,9 +25,9 @@ J0=I0*ro;	% Mass moment of inertia [kgm]
 m=A*ro;		% mass per unit length of elements [kg/m]
 q=0;%1;            % Distributed load [N/m]
 qt=0;		% Distributed torque [Nm/m]
-S=100;           % Concentrated load at end of beam [N]
-T=100*0.018;%1;		% Beam end torque [Nm]
-P=0;%-1.;		% Buckling load [N]
+S=0;%100;           % Concentrated load at end of beam [N]
+T=0;%100*0.018;%1;		% Beam end torque [Nm]
+P=-1.;		% Buckling load [N]
 
 % Element input data
 nelem=30;               % number of elements
