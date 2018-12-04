@@ -9,7 +9,7 @@ clear all;
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % Definitions and input data
-L=2.0;		% Length in [m]
+L=1.0;		% Length in [m]
 E=7E+10;	% Youngs modulus [N/m2]
 G=2.6923E+10;	% Shear modulus [N/m2]
 I=5.12E-08;%2.34E-07;%2.667E-9;	% Moment of inertia about x-axis [m4]
